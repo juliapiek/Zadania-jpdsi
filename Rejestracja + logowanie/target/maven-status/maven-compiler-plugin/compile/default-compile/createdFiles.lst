@@ -1,0 +1,11 @@
+com\cinema\dao\UserDAO.class
+com\cinema\login\LoginBean.class
+com\cinema\entities\Screening.class
+com\cinema\entities\Movie.class
+com\cinema\entities\ReservedSeat.class
+com\cinema\entities\Seat.class
+com\cinema\entities\Hall.class
+com\cinema\entities\User.class
+com\cinema\login\RegistrationBean.class
+com\cinema\entities\Role.class
+com\cinema\entities\Reservation.class
