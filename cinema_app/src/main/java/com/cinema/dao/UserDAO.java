@@ -4,6 +4,7 @@
  */
 package com.cinema.dao;
 
+import com.cinema.entities.Role;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
 import com.cinema.entities.User;
+import java.util.Date;
+import javax.security.auth.login.LoginException;
 
 //DAO - Data Access Object for Person entity
 //Designed to serve as an interface between higher layers of application and data.
@@ -27,6 +30,21 @@ public class UserDAO {
 	protected EntityManager em;
 
 	public void register(User user) {
+            if (user.getRoleId() == null) {
+          
+            Role defaultRole = em.find(Role.class, 3L);  
+            if (defaultRole != null) {
+                user.setRoleId(defaultRole); 
+            } 
+        }
+
+        Date now = new Date();
+        if (user.getCreatedAt() == null) {
+            user.setCreatedAt(now);
+        }
+        if (user.getUpdatedAt() == null) {
+            user.setUpdatedAt(now);
+        }
 		em.persist(user);
 	}
 
@@ -55,6 +73,25 @@ public class UserDAO {
 
 		return list;
 	}
+        
+        public User auth(String email, String password) throws LoginException {
+        try {
+            User user = em.createNamedQuery("User.findByEmail", User.class)
+                          .setParameter("email", email)
+                          .getSingleResult();
+
+               if (user != null && user.getPassword().equals(password)) {
+                return user; 
+            } else {
+                throw new LoginException("Nie poprawne dane logowania");
+            }
+        } catch (LoginException e) {
+            throw new LoginException("Nie znaleziono użytkownika lub podano złe dane logowania");
+        }
+    }
+        
+      
+
 
 
 }

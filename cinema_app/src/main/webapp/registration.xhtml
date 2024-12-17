@@ -13,23 +13,38 @@
         </ui:define>
     <ui:define name="pageContent">
        <h:form>
-            <h:panelGrid id="grid" columns="2" cellpadding="5" styleClass="bottom-space">
-           <p:outputLabel for="username" value="Imię:" />
-            <p:inputText id="username" value="#{registration.user.name}" />
+           <p:messages id="globalMessages" showDetail="true" redisplay="false" style="color:red;" />
+           
+            <h:panelGrid id="grid" columns="3" cellpadding="5" styleClass="bottom-space">
+           <p:outputLabel for="name" value="Imię:" />
+            <p:inputText id="name" value="#{registrationBean.user.name}" required ="true"
+                         requiredMessage="Imię jest wymagane!"/>
+            <p:message for="name" style="color:red;" />
+          
             
             <p:outputLabel for="surname" value="Nazwisko:" />
-            <p:inputText id="username" value="#{registration.user.surname}" />
+            <p:inputText id="surname" value="#{registrationBean.user.surname}" required ="true"
+                        requiredMessage="Nazwisko jest wymagane!"/>
+            <p:message for="surname" style="color:red;" />
+           
             
              <p:outputLabel for="email" value="Email:" />
-            <p:password id="email" value="#{registration.user.email}" />
-
+        <p:inputText id="email" value="#{registrationBean.user.email}" 
+                     required="true" requiredMessage="Email jest wymagany!">
+            <f:validator validatorId="emailValidator" />
+        </p:inputText>
+             <p:message for="email" style="color:red;" />
+           
+             
             <p:outputLabel for="password" value="Hasło:" />
-            <p:password id="password" value="#{registration.user.password}" />
+            <p:password id="password" value="#{registrationBean.user.password}" required ="true"
+                        requiredMessage="Hasło jest wymagane!"/>
+            <p:message for="password" style="color:red;" />
+           
             
           </h:panelGrid>
-        <p:commandButton value="Zarejestruj" action="#{registration.register}" />
-        <p:message for="username" />
-        <p:message for="password" />
+        <p:commandButton value="Zarejestruj" action="#{registrationBean.register}"  update="globalMessages"/>
+
         
 	</h:form>
         </ui:define>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/content.xhtml">
+    <ui:define name="title">
+        Panel Administratora
+    </ui:define>
+    <ui:define name="pageContent">
+        <h:body>
+            <ui:fragment rendered="#{loginBean.isAdmin()}">
+                <h:form>
+                    <p:dataTable value="#{adminBean.users}" var="user" paginator="true" rows="10">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{user.id}" />
+                        </p:column>
+                        <p:column headerText="Imię">
+                            <h:outputText value="#{user.name}" />
+                        </p:column>
+                        <p:column headerText="Nazwisko">
+                            <h:outputText value="#{user.surname}" />
+                        </p:column>
+                        <p:column headerText="Email">
+                            <h:outputText value="#{user.email}" />
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Przypisz rolę pracownika" action ="#{adminBean.assignRole(user)}" 
+                                             update="@form" rendered="#{user.roleId.id != 2}" />
+                            <p:commandButton value="Usuń rolę pracownika" 
+                                            action="#{adminBean.removeRole(user.id)}" 
+                                            update ="@form" rendered="#{ user.roleId.id == 2}" 
+                                             styleClass="ui-button-danger"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:fragment>
+
+            <ui:fragment rendered="#{!loginBean.isAdmin()}">
+                <h1>Nie masz uprawnień do wyświetlenia tej strony.</h1>
+                <h:link value="Powrót na stronę główną" outcome="index.xhtml" />
+            </ui:fragment>
+        </h:body>
+    </ui:define>
+</ui:composition>
+</html>

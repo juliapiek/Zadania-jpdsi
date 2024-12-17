@@ -1,3 +1,4 @@
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\admin\AdminBean.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\dao\UserDAO.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\entities\Hall.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\entities\Movie.java
@@ -8,3 +9,5 @@ C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\en
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\entities\Seat.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\entities\User.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\login\LoginBean.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\login\RegistrationBean.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\validators\EmailValidator.java
