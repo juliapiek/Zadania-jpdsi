@@ -9,6 +9,46 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <filter>
+            <filter-name>SecurityFilter</filter-name>
+
+            <filter-class>com.cinema.security.SecurityFilter</filter-class>
+
+            <init-param>
+                <param-name>noPermitionPage</param-name>
+                <param-value>/public/index.xhtml</param-value>
+            </init-param>
+
+            <init-param>
+                <param-name>permissions</param-name>
+        <param-value>
+            /jakarta.faces.resource : PUBLIC;
+            /pages: ADMIN;
+            /public: PUBLIC;
+        </param-value>
+            </init-param>
+
+            <init-param>
+                <param-name>invalidateOnRemoteAddressChange</param-name>
+                <param-value>false</param-value>
+            </init-param>
+            <init-param>
+                <param-name>invalidateOnRemoteHostChange</param-name>
+                <param-value>false</param-value>
+            </init-param>
+            <init-param>
+                <param-name>invalidateOnRemotePortChange</param-name>
+                <param-value>false</param-value>
+            </init-param>
+        </filter>
+        
+        <filter-mapping>
+            <filter-name>SecurityFilter</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
+        <session-config>
+            <session-timeout>30</session-timeout>
+        </session-config>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
@@ -21,4 +61,12 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Static Resources</web-resource-name>
+            <url-pattern>/resources/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+        </auth-constraint>
+    </security-constraint>
 </web-app>

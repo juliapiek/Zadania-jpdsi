@@ -5,6 +5,7 @@
 package com.cinema.login;
 import com.cinema.dao.UserDAO;
 import com.cinema.entities.User;
+import com.cinema.security.RemoteClient;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
@@ -16,6 +17,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
+import java.util.List;
 import javax.security.auth.login.LoginException;
 
 @Named("loginBean")
@@ -41,25 +43,59 @@ public class LoginBean implements Serializable{
         private String confirmpass;
     
    
-   public String login() {
-       try {
-            loggedIn = userDAO.auth(email, password);
-            if (loggedIn != null) {
-               HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+public String login() {
+    try {
+       
+        loggedIn = userDAO.auth(email, password);
+
+        if (loggedIn != null) {
+          
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                    .getExternalContext()
+                    .getSession(true);
             session.setAttribute("user", loggedIn);
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Zalogowano pomyślnie"));
-                return "index.xhtml"; 
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nie poprawne dane logowania", " "));
-                return null; 
+
+         
+            RemoteClient<User> client = new RemoteClient<>();
+            client.setDetails(loggedIn);
+
+    
+            List<String> roles = userDAO.getUserRolesFromDatabase(loggedIn);
+            if (roles != null && !roles.isEmpty()) {
+                client.getRoles().addAll(roles);
             }
-        } catch (LoginException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nie zalogowano", e.getMessage()));
+
+ 
+            session.setAttribute("remoteClient", client);
+
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                            "Zalogowano pomyślnie", null));
+
+ 
+            return "index.xhtml";
+        } else {
+  
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                            "Niepoprawne dane logowania", null));
             return null;
         }
-       
-      
-    } 
+    } catch (LoginException e) {
+   
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                        "Nie zalogowano", e.getMessage()));
+        return null;
+    } catch (Exception e) {
+
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                        "Wystąpił nieoczekiwany błąd", e.getMessage()));
+        return null;
+    }
+}
    public boolean isLoggedIn() {
          HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     loggedIn = (User) session.getAttribute("user");
@@ -68,15 +104,7 @@ public class LoginBean implements Serializable{
     }
    
    public boolean isAdmin() {
-      if (loggedIn == null) {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        loggedIn = (User) session.getAttribute("user");
-    }
-    if (loggedIn != null && loggedIn.getRoleId() != null) {
-      
-        return loggedIn.getRoleId().getId().equals(1L); 
-    }
-    return false;
+       return loggedIn != null && "admin".equals(loggedIn.getRoleId().getName());
 }
    
    public String logout() {

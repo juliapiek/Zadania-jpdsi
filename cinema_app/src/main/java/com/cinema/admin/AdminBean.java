@@ -1,5 +1,6 @@
 package com.cinema.admin;
 
+import com.cinema.dao.RoleDAO;
 import com.cinema.dao.UserDAO;
 import com.cinema.entities.Role;
 import com.cinema.entities.User;
@@ -22,11 +23,14 @@ public class AdminBean implements Serializable {
 
     @Inject
     private UserDAO userDAO;
+    @Inject
+    private RoleDAO roleDAO;
     
      @PersistenceContext(unitName = "cinema-simplePU")
     private EntityManager em;
 
     private List<User> users;
+    private List<Role> roles;
 
     public List<User> getUsers() {
         if (users == null) {
@@ -34,6 +38,12 @@ public class AdminBean implements Serializable {
         }
         return users;
         
+    }
+     public List<Role> getRoles() {
+        if (roles == null) {
+            roles = roleDAO.findAll();
+        }
+        return roles;
     }
     
     public void loadUsers() {
@@ -43,18 +53,16 @@ public class AdminBean implements Serializable {
     
     public void assignRole(User user) {
         try {
-        System.out.println("Starting role assignment for user: " + user);
      
         Role employeeRole = em.find(Role.class, 2L);
        
         user.setRoleId(employeeRole);
         em.merge(user);
-        System.out.println("Role successfully assigned to user: " + user.getId());
         FacesContext.getCurrentInstance().addMessage(null, 
             new FacesMessage(FacesMessage.SEVERITY_INFO, "Rola pracownika została przypisana", null));
         loadUsers();
     } catch (Exception e) {
-        System.err.println("Error in assignRole: " + e.getMessage());
+        System.err.println("Error w przypisaniu roli: " + e.getMessage());
         e.printStackTrace();
         FacesContext.getCurrentInstance().addMessage(null, 
             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wystąpił błąd: " + e.getMessage(), null));

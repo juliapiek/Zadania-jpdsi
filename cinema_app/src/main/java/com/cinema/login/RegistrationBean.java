@@ -4,7 +4,9 @@
  */
 package com.cinema.login;
 
+import com.cinema.dao.RoleDAO;
 import com.cinema.dao.UserDAO;
+import com.cinema.entities.Role;
 import com.cinema.entities.User;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
@@ -25,6 +27,8 @@ public class RegistrationBean implements Serializable{
 
 	@Inject
 	FacesContext context;
+        @Inject
+    private RoleDAO roleDAO;
 
 	@EJB
 	private UserDAO userDAO;
@@ -55,7 +59,13 @@ public class RegistrationBean implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
-  
+  private Role getRoleByName(String name) {
+        Role role = roleDAO.findByName(name);
+        if (role == null) {
+            throw new RuntimeException("Role not found: " + name);
+        }
+    return role;
+}
     
  
 }

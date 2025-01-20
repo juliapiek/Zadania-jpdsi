@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/content.xhtml">
+    
+  <ui:define name="title">
+       Logowanie
+        </ui:define>
+    <ui:define name="pageContent">
+        
+       <h:form>
+           <p:messages id="messages" globalOnly="true"/>
+           
+            <h:panelGrid id="grid" columns="2" cellpadding="5" styleClass="bottom-space">
+            <p:outputLabel for="email" value="Email: " />
+            <p:inputText id="email" value="#{loginBean.email}" />
+
+            <p:outputLabel for="password" value="Hasło:" />
+            <p:password id="password" value="#{loginBean.password}" />
+          </h:panelGrid>
+        <p:commandButton value="Zaloguj" action="#{loginBean.login}" ajax="false" style="margin-bottom: 20px;"/>
+
+        
+        <h:panelGroup layout="block" style="text-align: left; margin-top: 10px;">
+        <p:outputLabel value="Nie masz jeszcze konta? " />
+        <h:link value="Zarejestruj się" outcome="registration.jsf" />
+    </h:panelGroup>
+        
+	</h:form>
+        
+        
+        </ui:define>
+ </ui:composition>
+</html>

@@ -14,6 +14,8 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
 import com.cinema.entities.User;
+import jakarta.persistence.TypedQuery;
+import java.util.Collections;
 import java.util.Date;
 import javax.security.auth.login.LoginException;
 
@@ -25,7 +27,7 @@ import javax.security.auth.login.LoginException;
 public class UserDAO {
 	private final static String UNIT_NAME = "cinema-simplePU";
 
-	// Dependency injection (no setter method is needed)
+
 	@PersistenceContext(unitName = UNIT_NAME)
 	protected EntityManager em;
 
@@ -88,9 +90,21 @@ public class UserDAO {
         } catch (LoginException e) {
             throw new LoginException("Nie znaleziono użytkownika lub podano złe dane logowania");
         }
+        
     }
         
       
+public List<String> getUserRolesFromDatabase(User user) {
+    try {
+        TypedQuery<String> query = em.createQuery(
+            "SELECT r.name FROM Role r JOIN r.userCollection u WHERE u.id = :userId", String.class);
+        query.setParameter("userId", user.getId());
+        return query.getResultList();
+    } catch (Exception e) {
+        e.printStackTrace();
+        return Collections.emptyList(); 
+    }
+}
 
 
 

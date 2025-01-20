@@ -137,7 +137,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Role[ id=" + id + " ]";
+        return "com.cinema.entities.Role[ id=" + id + " ]";
     }
     
 }

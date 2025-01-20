@@ -1,4 +1,8 @@
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\admin\AdminBean.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\dao\HallDAO.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\dao\MovieDAO.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\dao\RoleDAO.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\dao\ScreeningDAO.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\dao\UserDAO.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\entities\Hall.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\entities\Movie.java
@@ -10,4 +14,12 @@ C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\en
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\entities\User.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\login\LoginBean.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\login\RegistrationBean.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\reservation\ReservationBean.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\reservation\ReservationService.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\reservation\ReservedSeatService.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\reservation\SeatService.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\screening\ScreeningBean.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\security\RemoteClient.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\security\RoleConverter.java
+C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\security\SecurityFilter.java
 C:\Users\pieka\Documents\NetBeansProjects\cinema_app\src\main\java\com\cinema\validators\EmailValidator.java
